@@ -1,4 +1,6 @@
 import sqlite3
+import uuid
+from datetime import datetime
 
 con = sqlite3.connect("database.db")
 cur = con.cursor()
@@ -9,7 +11,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,
 cur.execute('''CREATE TABLE IF NOT EXISTS manhwa_list(
             id INTEGER PRIMARY KEY,
             session_id TEXT,
-            comick_slug TEXT,
+            slug TEXT,
             title TEXT,
             genres TEXT,
             status TEXT,
@@ -18,3 +20,14 @@ cur.execute('''CREATE TABLE IF NOT EXISTS manhwa_list(
             FOREIGN KEY (session_id) REFERENCES sessions(id)
             
     ) ''')
+
+def create_session():
+        session_uuid =  uuid.uuid4()
+        time_stamp = datetime.now().isoformat()
+        cur.execute('''INSERT INTO sessions 
+                    ("id", "created_at") VALUES
+                    (?, ?)
+                    ''', (str(session_uuid), time_stamp))
+        con.commit()
+        return session_uuid
+
