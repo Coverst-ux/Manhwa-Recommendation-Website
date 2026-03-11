@@ -11,9 +11,11 @@ cur.execute('''CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,
 cur.execute('''CREATE TABLE IF NOT EXISTS manhwa_list(
             id INTEGER PRIMARY KEY,
             session_id TEXT,
+            hid TEXT,
             slug TEXT,
             title TEXT,
             genres TEXT,
+            cover_url TEXT,
             status TEXT,
             demographic TEXT,
             added_at TEXT,
@@ -36,7 +38,7 @@ def add_manhwa(session_uuid, hid, slug, title, genres, status, demographic, cove
                     INSERT INTO manhwa_list
                     ("session_id", "hid", "slug", "title", "genres", "status", "demographic", "cover_url", "added_at") VALUES
                     (?,?,?,?,?,?,?,?,?)
-                    ''', (str(session_uuid), hid, slug, title, genres, status, demographic, cover_url, added_at))
+                    ''', (str(session_uuid), hid, slug, title, str(genres), status, demographic, cover_url, added_at))
         con.commit()
         return cur.lastrowid
         
