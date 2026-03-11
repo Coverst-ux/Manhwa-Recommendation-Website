@@ -31,3 +31,12 @@ def create_session():
         con.commit()
         return session_uuid
 
+def add_manhwa(session_uuid, hid, slug, title, genres, status, demographic, cover_url, added_at):
+        cur.execute('''
+                    INSERT INTO manhwa_list
+                    ("session_id", "hid", "slug", "title", "genres", "status", "demographic", "cover_url", "added_at") VALUES
+                    (?,?,?,?,?,?,?,?,?)
+                    ''', (str(session_uuid), hid, slug, title, genres, status, demographic, cover_url, added_at))
+        con.commit()
+        return cur.lastrowid
+        
