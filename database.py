@@ -42,3 +42,9 @@ def add_manhwa(session_uuid, hid, slug, title, genres, status, demographic, cove
         con.commit()
         return cur.lastrowid
         
+def get_manhwa(session_uuid):
+        cur.execute(''' 
+                    SELECT * FROM manhwa_list WHERE session_id = ?
+                    ''')
+        return cur.fetchall()
+        
