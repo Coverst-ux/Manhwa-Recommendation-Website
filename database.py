@@ -52,4 +52,4 @@ def delete_manhwa(id):
         cur.execute('''
                     DELETE FROM manhwa_list WHERE id = ?
                     ''', (id, ))
-        con.commit()
+        con.commit()    
