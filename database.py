@@ -45,6 +45,11 @@ def add_manhwa(session_uuid, hid, slug, title, genres, status, demographic, cove
 def get_manhwa(session_uuid):
         cur.execute(''' 
                     SELECT * FROM manhwa_list WHERE session_id = ?
-                    ''')
+                    ''', (session_uuid,))
         return cur.fetchall()
         
+def delete_manhwa(id):
+        cur.execute('''
+                    DELETE FROM manhwa_list WHERE id = ?
+                    ''', (id, ))
+        con.commit()
